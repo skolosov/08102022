@@ -27,10 +27,10 @@ class RentService
      * @param int $userId
      * @param string $startRent
      * @param string $endRent
-     * @return void
+     * @return Rent
      * @throws Exception
      */
-    public function setRent(int $carId, int $userId, string $startRent, string $endRent): void
+    public function setRent(int $carId, int $userId, string $startRent, string $endRent): Rent
     {
         $start = Carbon::parse($startRent)->addSecond();
         $end = Carbon::parse($endRent);
@@ -51,11 +51,13 @@ class RentService
             }
         }
 
-        Rent::query()->create([
+        /** @var Rent $rent */
+        $rent = Rent::query()->create([
             'car_id' => $carId,
             'user_id' => $userId,
             'start_rent' => $start,
             'end_rent' => $end,
         ]);
+        return $rent;
     }
 }

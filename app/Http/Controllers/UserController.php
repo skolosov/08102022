@@ -44,9 +44,4 @@ class UserController extends Controller
     {
         return UserResponse::collection($this->userService->getAllUsers());
     }
-
-    public function getFreeCars()
-    {
-        return [];
-    }
 }

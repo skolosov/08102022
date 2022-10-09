@@ -77,20 +77,27 @@ class RentController extends Controller
      *          @OA\JsonContent(ref="#components/schemas/RentRequest"),
      *      ),
      *
-     *      @OA\Response(response=200, description="OK")
+     *      @OA\Response(response=200, description="OK",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="data", type="object", ref="#components/schemas/RentResponse"
+     *              ),
+     *          ),
+     *      )
      * )
      *
      *
      * @param RentStoreRequest $request
+     * @return RentResponse
      * @throws Exception
      */
-    public function store(RentStoreRequest $request): void
+    public function store(RentStoreRequest $request): RentResponse
     {
-        $this->rentService->setRent(
+        return new RentResponse($this->rentService->setRent(
             $request->get('carId'),
             $request->get('userId'),
             $request->get('startRent'),
             $request->get('endRent'),
-        );
+        ));
     }
 }
